@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE log4j:configuration SYSTEM "log4j.dtd">
+<log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/"
+	debug="true">
+
+	<appender name="FILE" class="org.apache.log4j.FileAppender">
+		<param name="File" value="syncrase.log" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="\%d{ISO8601} :: %p (%C{1}.%M) - \%m\%n" />
+		</layout>
+		<filter class="org.apache.log4j.varia.LevelRangeFilter">
+			<param name="LevelMax" value="fatal" />
+			<param name="LevelMin" value="trace" />
+			<param name="AcceptOnMatch" value="true" />
+		</filter>
+	</appender>
+
+
+	<appender name="CONSOLE" class="org.apache.log4j.ConsoleAppender">
+		<param name="Target" value="System.out" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="%-5p %c{1} - %m%n" />
+		</layout>
+	</appender>
+
+	<logger name="fr.syncrase.log">
+		<level value="trace" />
+		<appender-ref ref="FILE" />
+	</logger>
+
+	<root>
+		<level value="error" />
+		<appender-ref ref="CONSOLE" />
+	</root>
+</log4j:configuration>
