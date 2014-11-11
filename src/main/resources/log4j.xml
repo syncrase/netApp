@@ -3,19 +3,16 @@
 <log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/"
 	debug="true">
 
+	<!-- This appender is specificly used in the controleur context -->
 	<appender name="FILE" class="org.apache.log4j.FileAppender">
-		<param name="File" value="syncrase.log" />
+		<param name="File" value="$\{catalina.home\}/logs/controleur.log" /><!-- 
+			${catalina.base}/logs/ -->
 		<layout class="org.apache.log4j.PatternLayout">
-			<param name="ConversionPattern" value="\%d{ISO8601} :: %p (%C{1}.%M) - \%m\%n" />
+			<param name="ConversionPattern" value="\%d{ISO8601} :: %p (%C{1}.%M l.%L) - %m%n " />
 		</layout>
-		<filter class="org.apache.log4j.varia.LevelRangeFilter">
-			<param name="LevelMax" value="fatal" />
-			<param name="LevelMin" value="trace" />
-			<param name="AcceptOnMatch" value="true" />
-		</filter>
 	</appender>
 
-
+	<!-- root logger's appender -->
 	<appender name="CONSOLE" class="org.apache.log4j.ConsoleAppender">
 		<param name="Target" value="System.out" />
 		<layout class="org.apache.log4j.PatternLayout">
@@ -23,9 +20,28 @@
 		</layout>
 	</appender>
 
-	<logger name="fr.syncrase.log">
+	<!-- This is a common appender in the whole application -->
+	<appender name="fileRol" class="org.apache.log4j.RollingFileAppender">
+		<param name="append" value="false" />
+		<param name="maxFileSize" value="10KB" />
+		<param name="maxBackupIndex" value="5" />
+		<!-- For Tomcat -->
+		<param name="file" value="${catalina.home}/logs/netApp.log" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="%d{yyyy-MM-dd HH:mm:ss} %-5p %c{1}:%L - %m%n" />
+		</layout>
+	</appender>
+
+	<!-- This logger is specific to the controleur package -->
+	<logger name="fr.syncrase.netApp.controleur">
 		<level value="trace" />
 		<appender-ref ref="FILE" />
+	</logger>
+
+	<!-- This logger is used each times a logger is call in this package -->
+	<logger name="fr.syncrase.netApp">
+		<level value="trace" />
+		<appender-ref ref="fileRol" />
 	</logger>
 
 	<root>

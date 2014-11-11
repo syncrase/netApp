@@ -1,11 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
+<!DOCTYPE struts-config PUBLIC
+"-//Apache Software Foundation//DTD Struts Configuration 1.2//EN"
+"http://jakarta.apache.org/struts/dtds/struts-config_1_2.dtd">
 
 <struts-config>
     
 	<form-beans>
 		<form-bean name="identificationForm"
 			type="fr.syncrase.netApp.forms.IdentificationForm" />
+		<form-bean name="formTest"
+			type="fr.syncrase.netApp.forms.FormTest" />
 	</form-beans>
 	
 	
@@ -24,6 +28,14 @@
 			<forward name="erreur" path="/WEB-INF/jsp/erreur.jsp"></forward>
 		</action>
 
+		
+		<action scope="session" path="/ActionTest" name="formTest"
+			type="fr.syncrase.netApp.controleur.ActionTest"
+			input="/">
+			<forward name="succes" path="/WEB-INF/jsp/index.jsp"></forward>
+			<forward name="erreur" path="/WEB-INF/jsp/erreur.jsp"></forward>
+		</action>
+		
 		
 		<!-- redirection simple, sans action -->
 		<action path="/RetourIndex" type="org.apache.struts.actions.ForwardAction"

@@ -9,21 +9,18 @@ import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 
-public class IdentificationAction extends Action {
+public class ActionTest extends Action {
 
-	static Logger logger = Logger.getLogger(IdentificationAction.class);
-
+	static Logger logger = Logger.getLogger(ActionTest.class);
+	
 	public ActionForward execute(ActionMapping mapping, ActionForm form,
-			HttpServletRequest request, HttpServletResponse response)
-			throws Exception {
+			HttpServletRequest req, HttpServletResponse res) throws Exception {
 
-//		logger.addAppender(logger.getAppender("FILE"));
+		logger.info("action test");
+		logger.warn("warning");
+		logger.error("error");
 		
-		logger.info("succes");
-		logger.warn("chaud");
-		logger.error("attention");
 		return mapping.findForward("succes");
-
 	}
 
 }
